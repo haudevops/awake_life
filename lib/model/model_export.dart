@@ -1,0 +1,1 @@
+export 'package:awake_life/model/social_model.dart';
