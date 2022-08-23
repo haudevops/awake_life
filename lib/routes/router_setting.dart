@@ -17,6 +17,16 @@ class RoutesSetting {
         return SlideLeftRoute(LoginPage());
       case HomePage.routeName:
         return SlideLeftRoute(HomePage());
+      case NavigationPage.routeName:
+        return SlideLeftRoute(NavigationPage());
+      case MapPage.routeName:
+        return SlideLeftRoute(MapPage());
+      case NotificationPage.routeName:
+        return SlideLeftRoute(NotificationPage());
+      case MenuPage.routeName:
+        return SlideLeftRoute(MenuPage());
+      case SocialPage.routeName:
+        return SlideLeftRoute(SocialPage());
       default:
         throw ('this route name does not exist');
     }

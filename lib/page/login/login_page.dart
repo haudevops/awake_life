@@ -193,7 +193,7 @@ class LoginPageState extends BasePageState<LoginPage> {
           Center(
             child: GestureDetector(
               onTap: (){
-                Navigator.pushNamed(context, HomePage.routeName);
+                Navigator.pushNamed(context, NavigationPage.routeName);
               },
               onDoubleTap: (){},
               child: Text(

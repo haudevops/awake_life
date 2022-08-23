@@ -20,4 +20,5 @@ export 'package:awake_life/utils/screen_util/r_sizedbox.dart';
 export 'package:awake_life/utils/screen_util/screen_util.dart';
 export 'package:awake_life/utils/screen_util/screen_util_init.dart';
 export 'package:awake_life/utils/screen_util/size_extension.dart';
+export 'package:awake_life/utils/style_google_map.dart';
 

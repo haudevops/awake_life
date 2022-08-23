@@ -5,6 +5,7 @@ import 'package:awake_life/base/base.dart';
 import 'package:awake_life/model/model_export.dart';
 import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/utils/screen_util.dart';
+import 'package:awake_life/widget/snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -20,10 +21,27 @@ class HomePage extends BasePage {
 class _HomePageState extends BasePageState<HomePage> {
   String? _data;
   SocialModel? _socialModel;
+  final ScrollController _sliverScrollController = ScrollController();
+  bool isPinned = false;
 
   @override
   void onCreate() {
     _parseJson();
+    _sliverScrollController.addListener(() {
+      if (!isPinned &&
+          _sliverScrollController.hasClients &&
+          _sliverScrollController.offset > kToolbarHeight) {
+        setState(() {
+          isPinned = true;
+        });
+      } else if (isPinned &&
+          _sliverScrollController.hasClients &&
+          _sliverScrollController.offset < kToolbarHeight) {
+        setState(() {
+          isPinned = false;
+        });
+      }
+    });
   }
 
   @override
@@ -53,12 +71,15 @@ class _HomePageState extends BasePageState<HomePage> {
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: CustomScrollView(
+          controller: _sliverScrollController,
           slivers: [
             SliverAppBar(
               automaticallyImplyLeading: false,
               expandedHeight: ScreenUtil.getInstance().getAdapterSize(200),
               stretch: true,
+              pinned: true,
               flexibleSpace: FlexibleSpaceBar(
+                titlePadding: EdgeInsets.only(bottom: ScreenUtil.getInstance().getAdapterSize(13)),
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -67,8 +88,8 @@ class _HomePageState extends BasePageState<HomePage> {
                     Text(
                       "AWL",
                       style: TextStyle(
-                          fontSize: ScreenUtil.getInstance().getAdapterSize(25),
-                          color: Colors.white),
+                          fontSize: ScreenUtil.getInstance().getAdapterSize(20),
+                          color: !isPinned ? Colors.white : Colors.black),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -84,7 +105,7 @@ class _HomePageState extends BasePageState<HomePage> {
                   fit: BoxFit.cover,
                 ),
               ),
-              backgroundColor: Colors.black45,
+              backgroundColor: Colors.white,
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate((context, index) {
@@ -104,15 +125,20 @@ class _HomePageState extends BasePageState<HomePage> {
                       width: ScreenUtil.getInstance().screenWidth,
                       child: Column(
                         children: [
-                          CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: _socialModel?.data?[index].image ?? '',
-                            placeholder: (context, url) =>
-                                SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: Lottie.asset('assets/img/loading_lottie.json', fit: BoxFit.fill),
-                                ),
+                          SizedBox(
+                            height: ScreenUtil.getInstance().getAdapterSize(180),
+                            width: ScreenUtil.getInstance().screenWidth,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: _socialModel?.data?[index].image ?? '',
+                              placeholder: (context, url) => SizedBox(
+                                width: 30,
+                                height: 30,
+                                child: Lottie.asset(
+                                    'assets/img/loading_lottie.json',
+                                    fit: BoxFit.scaleDown),
+                              ),
+                            ),
                           ),
                           SizedBox(
                               height:
@@ -139,7 +165,8 @@ class _HomePageState extends BasePageState<HomePage> {
             ),
           ],
         ),
-      )
+      ),
     );
   }
+
 }
