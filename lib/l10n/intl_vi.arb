@@ -1,1 +1,6 @@
-{}
+{
+  "load_more_fail": "Tải thất bại, vui lòng thử lại.",
+  "load_more_wait": "Chờ tải.",
+  "load_more_wait_moment": "Đang tải, chờ trong giây lát",
+  "load_more_no_more": "Không có thêm dữ liệu"
+}

@@ -115,11 +115,11 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
           BottomNavigationBarItem(
               icon: Icon(Icons.map), label: 'tickets'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined), label: 'calendar'),
+              icon: Icon(Icons.live_tv), label: 'live_tv'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_post_office), label: 'microphone'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search')
+              icon: Icon(Icons.local_post_office), label: 'notification'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting')
         ],
         selectedLabelStyle: const TextStyle(fontSize: 14),
         unselectedLabelStyle: const TextStyle(fontSize: 10),
