@@ -73,7 +73,7 @@ class _MapPageState extends BasePageState<MapPage> {
             ),
             onMapCreated: onMapCreated,
             onTap: (LatLng location) {},
-            // markers: markers,
+            markers: markers,
           ),
         ),
       ),

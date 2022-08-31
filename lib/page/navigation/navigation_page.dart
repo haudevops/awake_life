@@ -90,7 +90,7 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
           MapPage(),
           SocialPage(),
           HomePage(),
-          NotificationPage(),
+          PeoplePage(),
           MenuPage(),
         ],
       ),
@@ -118,7 +118,7 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
               icon: Icon(Icons.live_tv), label: 'live_tv'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.local_post_office), label: 'notification'),
+              icon: Icon(Icons.people), label: 'people'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting')
         ],
         selectedLabelStyle: const TextStyle(fontSize: 14),

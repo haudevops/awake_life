@@ -34,7 +34,8 @@ class PrefsUtil {
   }
 
   /// get obj.
-  static T? getObj<T>(String key, T Function(Map<String, dynamic> v) f, {T? defValue}) {
+  static T? getObj<T>(String key, T Function(Map<String, dynamic> v) f,
+      {T? defValue}) {
     Map<String, dynamic>? map = getObject(key);
     return map == null ? defValue : f(map);
   }

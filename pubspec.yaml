@@ -90,6 +90,7 @@ flutter:
     - assets/img/appbar_background.jpg
     - assets/data/social_data.json
     - assets/data/notificate.json
+    - assets/data/people.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,9 +1,10 @@
 import 'package:awake_life/base/base.dart';
 import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/res/colors.dart';
-import 'package:awake_life/utils/screen_util.dart';
+import 'package:awake_life/utils/util_export.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends BasePage {
   LoginPage({Key? key}) : super(bloc: LoginBloc());
@@ -22,6 +23,7 @@ class LoginPageState extends BasePageState<LoginPage> {
   final _formKeyPass = GlobalKey<FormState>();
   final RegExp regExpPhoneNumber = RegExp(r'(^(?:[+0]9)?[0-9]{10,14}$)');
   bool _passwordVisible = false;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   final Shader linearGradient = LinearGradient(
     colors: <Color>[Colors.blueAccent.shade400, Colors.greenAccent.shade200],
@@ -38,6 +40,13 @@ class LoginPageState extends BasePageState<LoginPage> {
     _phoneController.clear();
     _focusNodePhoneNumber.unfocus();
     _focusNodePassword.unfocus();
+  }
+
+  Future<void> _saveToken() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setBool(PrefsCache.IS_LOGIN, true);
+    if(!mounted) return;
+    Navigator.pushNamed(context, NavigationPage.routeName);
   }
 
   @override
@@ -177,7 +186,13 @@ class LoginPageState extends BasePageState<LoginPage> {
                     elevation: MaterialStateProperty.all(3),
                     shadowColor: MaterialStateProperty.all(Colors.transparent),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKeyPhone.currentState!.validate() &&
+                        _formKeyPass.currentState!.validate()){
+                      _saveToken();
+                    }
+
+                  },
                   child: const Padding(
                     padding: EdgeInsets.only(
                       top: 10,

@@ -71,6 +71,7 @@ class _HomePageState extends BasePageState<HomePage> {
       body: RefreshIndicator(
         onRefresh: _refresh,
         child: CustomScrollView(
+          shrinkWrap: true,
           controller: _sliverScrollController,
           slivers: [
             SliverAppBar(
@@ -79,7 +80,8 @@ class _HomePageState extends BasePageState<HomePage> {
               stretch: true,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
-                titlePadding: EdgeInsets.only(bottom: ScreenUtil.getInstance().getAdapterSize(13)),
+                titlePadding: EdgeInsets.only(
+                    bottom: ScreenUtil.getInstance().getAdapterSize(13)),
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -108,9 +110,11 @@ class _HomePageState extends BasePageState<HomePage> {
               backgroundColor: Colors.white,
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
+              delegate: SliverChildBuilderDelegate(
+                  childCount: _socialModel?.data?.length, (context, index) {
                 return Card(
                   elevation: 2,
+                  color: Colors.black,
                   child: InkWell(
                     onDoubleTap: () {},
                     onTap: () {
@@ -120,13 +124,14 @@ class _HomePageState extends BasePageState<HomePage> {
                     child: Container(
                       margin: EdgeInsets.symmetric(
                           horizontal:
-                          ScreenUtil.getInstance().getAdapterSize(8),
+                              ScreenUtil.getInstance().getAdapterSize(8),
                           vertical: ScreenUtil.getInstance().getAdapterSize(8)),
                       width: ScreenUtil.getInstance().screenWidth,
                       child: Column(
                         children: [
                           SizedBox(
-                            height: ScreenUtil.getInstance().getAdapterSize(180),
+                            height:
+                                ScreenUtil.getInstance().getAdapterSize(180),
                             width: ScreenUtil.getInstance().screenWidth,
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
@@ -140,22 +145,22 @@ class _HomePageState extends BasePageState<HomePage> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                              height:
-                              ScreenUtil.getInstance().getAdapterSize(8)),
-                          Center(
-                              child: Text(
-                                _socialModel?.data?[index].nameProduct ?? '',
-                                style: const TextStyle(fontWeight: FontWeight.w700),
-                              )),
-                          SizedBox(
-                              height:
-                              ScreenUtil.getInstance().getAdapterSize(8)),
-                          Text(
-                            _socialModel?.data?[index].descriptions ?? '',
-                            maxLines: 5,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          // SizedBox(
+                          //     height:
+                          //     ScreenUtil.getInstance().getAdapterSize(8)),
+                          // Center(
+                          //     child: Text(
+                          //       _socialModel?.data?[index].nameProduct ?? '',
+                          //       style: const TextStyle(fontWeight: FontWeight.w700),
+                          //     )),
+                          // SizedBox(
+                          //     height:
+                          //     ScreenUtil.getInstance().getAdapterSize(8)),
+                          // Text(
+                          //   _socialModel?.data?[index].descriptions ?? '',
+                          //   maxLines: 5,
+                          //   overflow: TextOverflow.ellipsis,
+                          // ),
                         ],
                       ),
                     ),
@@ -168,5 +173,4 @@ class _HomePageState extends BasePageState<HomePage> {
       ),
     );
   }
-
 }

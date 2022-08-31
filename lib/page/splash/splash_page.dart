@@ -2,7 +2,7 @@ import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/utils/util_export.dart';
 import 'package:awake_life/widget/widget_export.dart';
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -13,6 +13,8 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   @override
   void initState() {
     _checkToken();
@@ -20,8 +22,12 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _checkToken() async {
-    await Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, LoginPage.routeName);
+    final SharedPreferences prefs = await _prefs;
+    final isLogin = prefs.getBool(PrefsCache.IS_LOGIN) ?? false;
+    Future.delayed(const Duration(seconds: 3), () {
+      isLogin
+          ? Navigator.pushNamed(context, NavigationPage.routeName)
+          : Navigator.pushNamed(context, LoginPage.routeName);
     });
   }
 

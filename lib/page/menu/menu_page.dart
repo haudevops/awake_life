@@ -4,6 +4,7 @@ import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/utils/util_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuPage extends BasePage {
   MenuPage({Key? key}) : super(bloc: MenuBloc());
@@ -14,6 +15,8 @@ class MenuPage extends BasePage {
 }
 
 class _MenuPageState extends BasePageState<MenuPage> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   List<ItemSettingsModel> getItemsListOne() {
     return [
       ItemSettingsModel(
@@ -52,13 +55,16 @@ class _MenuPageState extends BasePageState<MenuPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: ScreenUtil.getInstance().getAdapterSize(50),
+                height: ScreenUtil.getInstance().getAdapterSize(35),
               ),
               Text(
                 'Setting',
                 style: TextStyle(
                     fontSize: ScreenUtil.getInstance().getAdapterSize(25),
                     fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: ScreenUtil.getInstance().getAdapterSize(20),
               ),
               _itemCard(getItemsListOne()),
             ],
@@ -111,6 +117,13 @@ class _MenuPageState extends BasePageState<MenuPage> {
     );
   }
 
+  Future<void> _clearToken() async{
+    final SharedPreferences prefs = await _prefs;
+    prefs.clear();
+    if (!mounted) return;
+    Navigator.pushNamed(context, SplashPage.routeName);
+  }
+
   void _onClickItem(String id) {
     switch (id) {
       case Constants.ITEM_MENU_INFO:
@@ -122,8 +135,12 @@ class _MenuPageState extends BasePageState<MenuPage> {
       case Constants.ITEM_MENU_FRIENDS:
         DebugLog.show('Click ITEM_MENU_WALLET');
         break;
+      case Constants.ITEM_MENU_ACTION:
+        DebugLog.show('Click ITEM_MENU_ACTION');
+        break;
       case Constants.ITEM_MENU_LOGOUT:
         DebugLog.show('Click ITEM_MENU_SHARE_CODE');
+        _clearToken();
         break;
       default:
         break;

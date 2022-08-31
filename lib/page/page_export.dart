@@ -20,3 +20,5 @@ export 'package:awake_life/page/menu/friends/friends_bloc.dart';
 export 'package:awake_life/page/menu/friends/friends_page.dart';
 export 'package:awake_life/page/menu/info/info_bloc.dart';
 export 'package:awake_life/page/menu/info/info_page.dart';
+export 'package:awake_life/page/people/people_bloc.dart';
+export 'package:awake_life/page/people/people_page.dart';
