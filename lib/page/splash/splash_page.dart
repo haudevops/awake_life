@@ -1,4 +1,5 @@
 import 'package:awake_life/page/page_export.dart';
+import 'package:awake_life/routes/screen_arguments.dart';
 import 'package:awake_life/utils/util_export.dart';
 import 'package:awake_life/widget/widget_export.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,8 @@ class _SplashPageState extends State<SplashPage> {
     final isLogin = prefs.getBool(PrefsCache.IS_LOGIN) ?? false;
     Future.delayed(const Duration(seconds: 3), () {
       isLogin
-          ? Navigator.pushNamed(context, NavigationPage.routeName)
+          ? Navigator.pushNamed(context, NavigationPage.routeName,
+              arguments: ScreenArguments(arg1: 2))
           : Navigator.pushNamed(context, LoginPage.routeName);
     });
   }

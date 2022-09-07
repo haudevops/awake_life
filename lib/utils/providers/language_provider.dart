@@ -15,13 +15,13 @@ class LanguageProvider with ChangeNotifier {
     if (languageLocal != null && languageLocal.isNotEmpty) {
       _currentLocale = Locale(languageLocal);
     } else {
-      _currentLocale = Locale(Constants.VIETNAMESE);
+      _currentLocale = const Locale(Constants.VIETNAMESE);
     }
   }
 
-  void changeLocale(String _locale) {
-    this._currentLocale = new Locale(_locale);
-    PrefsUtil.putString(PrefsCache.LANGUAGE_CHANGE, _locale);
+  void changeLocale(String locale) {
+    _currentLocale = Locale(locale);
+    PrefsUtil.putString(PrefsCache.LANGUAGE_CHANGE, locale);
     notifyListeners();
   }
 }

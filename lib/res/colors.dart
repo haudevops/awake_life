@@ -22,6 +22,9 @@ class AppColor extends ChangeNotifier {
   static Color colorTitle = const Color(0xFFD29B00);
   static Color colorText = const Color(0xFFA49F9B);
   static Color colorBorderGray = const Color(0xFFF5F5F5);
+  static Color colorContainerDark = const Color(0xFF1F1F1F);
+  static Color colorLoadingDelivery = const Color(0xFFEEEEEE);
+  static Color colorInputContainer = const Color(0xFF1F1F1F);
 
   // Color background status
   static Color orderStatusRed = const Color(0xFFF20A39);
@@ -42,24 +45,31 @@ class AppColor extends ChangeNotifier {
 
   void switchMode({bool isDarkTheme = false}) {
     if (!isDarkTheme) {
-      colorBackground = Colors.white;
+      //white
+      colorAppBarDark = Colors.white;
+      colorContainerDark = Colors.white;
+      colorBackground = const Color(0xFFEEEEEE);
       colorDarkGray = const Color(0xFFEEEEEE);
       colorItemDarkWhite = Colors.white;
-      // colorWhiteDark = const Color(0xFF222222);
-      colorWhiteDark = Colors.white;
+      colorWhiteDark = Colors.black;
       colorDivider = const Color(0xFFF5F5F5);
-      colorWhiteGrey = Colors.grey;
+      colorWhiteGrey = Colors.white;
       colorTextGray = const Color(0xFF686A71);
-
+      colorLoadingDelivery = const Color(0xFFEEEEEE);
+      colorInputContainer = Colors.grey[300]!;
     } else {
-      colorBackground = Colors.white;
+      //dart
+      colorAppBarDark = const Color(0xFF1F1F1F);
+      colorContainerDark = const Color(0xFF1F1F1F);
+      colorBackground = Colors.black;
       colorDarkGray = const Color(0xFFEEEEEE);
       colorItemDarkWhite = Colors.white;
-      // colorWhiteDark = const Color(0xFF222222);
       colorWhiteDark = Colors.white;
-      colorDivider = const Color(0xFFF5F5F5);
+      colorDivider = Colors.black;
       colorWhiteGrey = Colors.grey;
       colorTextGray = const Color(0xFF686A71);
+      colorLoadingDelivery = const Color(0xFF1F1F1F);
+      colorInputContainer = const Color(0xFF1F1F1F);
     }
   }
 }

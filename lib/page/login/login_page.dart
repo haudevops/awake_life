@@ -1,6 +1,7 @@
 import 'package:awake_life/base/base.dart';
 import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/res/colors.dart';
+import 'package:awake_life/routes/screen_arguments.dart';
 import 'package:awake_life/utils/util_export.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -45,8 +46,8 @@ class LoginPageState extends BasePageState<LoginPage> {
   Future<void> _saveToken() async {
     final SharedPreferences prefs = await _prefs;
     prefs.setBool(PrefsCache.IS_LOGIN, true);
-    if(!mounted) return;
-    Navigator.pushNamed(context, NavigationPage.routeName);
+    if (!mounted) return;
+    Navigator.pushNamed(context, NavigationPage.routeName, arguments: ScreenArguments(arg1: 2));
   }
 
   @override
@@ -157,7 +158,7 @@ class LoginPageState extends BasePageState<LoginPage> {
                     BoxShadow(
                         color: Colors.black26,
                         offset: Offset(0, 2),
-                        blurRadius:  1.0)
+                        blurRadius: 1.0)
                   ],
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
@@ -188,10 +189,9 @@ class LoginPageState extends BasePageState<LoginPage> {
                   ),
                   onPressed: () {
                     if (_formKeyPhone.currentState!.validate() &&
-                        _formKeyPass.currentState!.validate()){
+                        _formKeyPass.currentState!.validate()) {
                       _saveToken();
                     }
-
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(
@@ -207,10 +207,11 @@ class LoginPageState extends BasePageState<LoginPage> {
           _itemPadding(18),
           Center(
             child: GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context, NavigationPage.routeName);
+              onTap: () {
+                Navigator.pushNamed(context, NavigationPage.routeName,
+                    arguments: ScreenArguments(arg1: 2));
               },
-              onDoubleTap: (){},
+              onDoubleTap: () {},
               child: Text(
                 'Skip this step',
                 style: TextStyle(

@@ -18,21 +18,15 @@ class RoutesSetting {
       case HomePage.routeName:
         return SlideLeftRoute(HomePage());
       case NavigationPage.routeName:
-        return SlideLeftRoute(NavigationPage());
+        return SlideLeftRoute(NavigationPage(data: arg));
       case MapPage.routeName:
         return SlideLeftRoute(MapPage());
       case NotificationPage.routeName:
         return SlideLeftRoute(NotificationPage());
       case MenuPage.routeName:
         return SlideLeftRoute(MenuPage());
-      case SocialPage.routeName:
-        return SlideLeftRoute(SocialPage());
-      case ActionPage.routeName:
-        return SlideLeftRoute(ActionPage());
-      case EventsPage.routeName:
-        return SlideLeftRoute(EventsPage());
-      case FriendsPage.routeName:
-        return SlideLeftRoute(FriendsPage());
+      case SettingPage.routeName:
+        return SlideLeftRoute(SettingPage());
       case InfoPage.routeName:
         return SlideLeftRoute(InfoPage());
       default:

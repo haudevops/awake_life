@@ -2,5 +2,15 @@
   "load_more_fail": "Load failed, please try again.",
   "load_more_wait": "Wait for loading.",
   "load_more_wait_moment": "Loading, wait a moment",
-  "load_more_no_more": "No more data"
+  "load_more_no_more": "No more data",
+  "theme": "Theme",
+  "language": "Language",
+  "setting": "Setting",
+  "vietnamese": "Vietnamese",
+  "english": "English",
+  "function": "Function",
+  "info_user": "Info user",
+  "logout": "Logout",
+  "friends": "Friends",
+  "social": "Social"
 }

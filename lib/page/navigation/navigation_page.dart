@@ -1,21 +1,25 @@
 import 'package:awake_life/base/base.dart';
 import 'package:awake_life/page/page_export.dart';
+import 'package:awake_life/routes/screen_arguments.dart';
+import 'package:awake_life/utils/providers/theme_provider.dart';
 import 'package:awake_life/widget/snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
-class NavigationPage extends BasePage{
-  NavigationPage({Key? key});
+class NavigationPage extends BasePage {
+  NavigationPage({Key? key, required this.data})
+      : super(bloc: NavigationBloc());
   static const routeName = '/NavigationPage';
+  final ScreenArguments data;
 
   @override
   BasePageState<BasePage<BaseBloc>> getState() => _NavigationPageState();
-
 }
 
-class _NavigationPageState extends BasePageState<NavigationPage>{
+class _NavigationPageState extends BasePageState<NavigationPage> {
   late PageController _pageController;
-  int _selectedItemPosition = 2;
+  int? _selectedItemPosition;
   SnakeShape snakeShape = SnakeShape.circle;
 
   bool showSelectedLabels = false;
@@ -31,8 +35,6 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
   );
 
   final _location = Location();
-
-
 
   final BorderRadius _borderRadius = const BorderRadius.only(
     topLeft: Radius.circular(25),
@@ -62,8 +64,9 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
   }
 
   initRouteParams() {
+    _selectedItemPosition = widget.data.arg1;
     _pageController = PageController(
-      initialPage: _selectedItemPosition,
+      initialPage: _selectedItemPosition ?? 2,
       keepPage: true,
     );
   }
@@ -72,6 +75,9 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
   void onCreate() {
     initRouteParams();
     _locationRequest();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setTheme();
+    });
   }
 
   @override
@@ -103,22 +109,19 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
 
         snakeViewColor: selectedColor,
         selectedItemColor:
-        snakeShape == SnakeShape.indicator ? selectedColor : null,
+            snakeShape == SnakeShape.indicator ? selectedColor : null,
         unselectedItemColor: unselectedColor,
 
         showUnselectedLabels: showUnselectedLabels,
         showSelectedLabels: showSelectedLabels,
 
-        currentIndex: _selectedItemPosition,
+        currentIndex: _selectedItemPosition ?? 2,
         onTap: _updateTabSelection,
         items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.map), label: 'tickets'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.live_tv), label: 'live_tv'),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'tickets'),
+          BottomNavigationBarItem(icon: Icon(Icons.live_tv), label: 'live_tv'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.people), label: 'people'),
+          BottomNavigationBarItem(icon: Icon(Icons.people), label: 'people'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting')
         ],
         selectedLabelStyle: const TextStyle(fontSize: 14),
@@ -126,7 +129,6 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
       ),
     );
   }
-
 
   Future<void> _locationRequest() async {
     bool _serviceEnabled = await _location.serviceEnabled();
@@ -151,11 +153,17 @@ class _NavigationPageState extends BasePageState<NavigationPage>{
       }
     }
 
-    _location.changeSettings(
-        accuracy: LocationAccuracy.high,
-        interval: 150000);
+    _location.changeSettings(accuracy: LocationAccuracy.high, interval: 150000);
 
     _location.onLocationChanged.listen((LocationData currentLocation) {});
   }
 
+  Future<void> setTheme() async {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    if (mounted){
+      setState(() {
+        provider.getThemeLocal();
+      });
+    }
+  }
 }

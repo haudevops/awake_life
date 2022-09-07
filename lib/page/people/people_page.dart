@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:awake_life/base/base.dart';
+import 'package:awake_life/generated/l10n.dart';
 import 'package:awake_life/model/model_export.dart';
 import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/res/colors.dart';
@@ -53,9 +54,10 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(top: ScreenUtil.getInstance().getAdapterSize(35)),
+              margin: EdgeInsets.only(
+                  top: ScreenUtil.getInstance().getAdapterSize(35)),
               child: Text(
-                'People',
+                S.current.friends,
                 style: TextStyle(
                     fontSize: ScreenUtil.getInstance().getAdapterSize(25),
                     fontWeight: FontWeight.w600),
@@ -70,35 +72,30 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
                 child: ListView.builder(
                     itemCount: _peopleModel?.data?.length ?? 0,
                     shrinkWrap: true,
+                    padding: EdgeInsets.zero,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: EdgeInsets.only(
                             left: ScreenUtil.getInstance().getAdapterSize(16),
                             right: ScreenUtil.getInstance().getAdapterSize(16),
                             bottom:
-                            ScreenUtil.getInstance().getAdapterSize(10)),
+                                ScreenUtil.getInstance().getAdapterSize(10)),
                         child: GestureDetector(
                           onTap: () => {print('click row $index')},
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                    color: Colors.orange[100],
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: IconButton(
-                                  iconSize: 20,
-                                  color: Colors.orange[300],
-                                  onPressed: () => {},
-                                  icon: const Icon(
-                                    Icons.email_rounded,
-                                    color: Colors.orange,
-                                  ),
-                                ),
-                              ),
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.asset(
+                                    'assets/img/hamster.jpg',
+                                    width: ScreenUtil.getInstance()
+                                        .getAdapterSize(45),
+                                    height: ScreenUtil.getInstance()
+                                        .getAdapterSize(45),
+                                    fit: BoxFit.cover,
+                                  )),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -111,7 +108,7 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
                                       _peopleModel?.data?[index].title ?? '',
                                       style: TextStyle(
                                           fontSize: ScreenUtil.getInstance()
-                                              .getAdapterSize(16),
+                                              .getAdapterSize(15),
                                           color: Colors.black),
                                     ),
                                     SizedBox(
@@ -132,7 +129,8 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
                                     ),
                                     Text(
                                       '${_peopleModel?.data?[index].day}',
-                                      style: TextStyle(color: AppColor.colorText),
+                                      style:
+                                          TextStyle(color: AppColor.colorText),
                                     ),
                                   ],
                                 ),

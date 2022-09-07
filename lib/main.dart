@@ -1,6 +1,7 @@
 import 'package:awake_life/page/page_export.dart';
 import 'package:awake_life/routes/router_setting.dart';
 import 'package:awake_life/utils/providers/language_provider.dart';
+import 'package:awake_life/utils/providers/theme_provider.dart';
 import 'package:awake_life/utils/util_export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,6 +31,9 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider<LanguageProvider>(
               create: (context) => LanguageProvider()),
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (context) => ThemeProvider(),
+          ),
         ],
         child: Builder(
           builder: (context) {

@@ -1,9 +1,10 @@
 import 'package:awake_life/base/base.dart';
+import 'package:awake_life/generated/l10n.dart';
 import 'package:awake_life/model/model_export.dart';
 import 'package:awake_life/page/page_export.dart';
+import 'package:awake_life/res/colors.dart';
 import 'package:awake_life/utils/util_export.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuPage extends BasePage {
@@ -19,16 +20,11 @@ class _MenuPageState extends BasePageState<MenuPage> {
 
   List<ItemSettingsModel> getItemsListOne() {
     return [
+      ItemSettingsModel(id: Constants.ITEM_MENU_INFO, title: S.current.info_user, image: ''),
       ItemSettingsModel(
-          id: Constants.ITEM_MENU_INFO, title: 'Info', image: ''),
+          id: Constants.ITEM_MENU_SETTING, title: S.current.setting, image: ''),
       ItemSettingsModel(
-          id: Constants.ITEM_MENU_EVENTS, title: 'Events', image: ''),
-      ItemSettingsModel(
-          id: Constants.ITEM_MENU_FRIENDS, title: 'Friends', image: ''),
-      ItemSettingsModel(
-          id: Constants.ITEM_MENU_ACTION, title: 'Actions', image: ''),
-      ItemSettingsModel(
-          id: Constants.ITEM_MENU_LOGOUT, title: 'Logout', image: ''),
+          id: Constants.ITEM_MENU_LOGOUT, title: S.current.logout, image: ''),
     ];
   }
 
@@ -58,7 +54,7 @@ class _MenuPageState extends BasePageState<MenuPage> {
                 height: ScreenUtil.getInstance().getAdapterSize(35),
               ),
               Text(
-                'Setting',
+                S.current.function,
                 style: TextStyle(
                     fontSize: ScreenUtil.getInstance().getAdapterSize(25),
                     fontWeight: FontWeight.w600),
@@ -78,6 +74,7 @@ class _MenuPageState extends BasePageState<MenuPage> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: items.length,
+      padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         return _itemFunctionWidget(
             text: items[index].title,
@@ -106,7 +103,6 @@ class _MenuPageState extends BasePageState<MenuPage> {
         //   width: ScreenUtil.getInstance().getAdapterSize(35),
         //   child: SvgPicture.asset(imageXML),
         // ),
-        contentPadding: const EdgeInsets.only(left: 8, right: 5),
         title: Text(
           text,
           style: TextStyle(color: textColor),
@@ -117,7 +113,7 @@ class _MenuPageState extends BasePageState<MenuPage> {
     );
   }
 
-  Future<void> _clearToken() async{
+  Future<void> _clearToken() async {
     final SharedPreferences prefs = await _prefs;
     prefs.clear();
     if (!mounted) return;
@@ -128,15 +124,13 @@ class _MenuPageState extends BasePageState<MenuPage> {
     switch (id) {
       case Constants.ITEM_MENU_INFO:
         DebugLog.show('Click ITEM_MENU_HISTORY');
+        Navigator.pushNamed(context, InfoPage.routeName);
         break;
-      case Constants.ITEM_MENU_EVENTS:
-        DebugLog.show('Click ITEM_MENU_STATISTICAL');
-        break;
-      case Constants.ITEM_MENU_FRIENDS:
-        DebugLog.show('Click ITEM_MENU_WALLET');
-        break;
-      case Constants.ITEM_MENU_ACTION:
-        DebugLog.show('Click ITEM_MENU_ACTION');
+      case Constants.ITEM_MENU_SETTING:
+        DebugLog.show('Click ITEM_MENU_SETTING');
+        Navigator.pushNamed(context, SettingPage.routeName).then((value) {
+          setState(() {});
+        });
         break;
       case Constants.ITEM_MENU_LOGOUT:
         DebugLog.show('Click ITEM_MENU_SHARE_CODE');

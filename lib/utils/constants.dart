@@ -116,10 +116,8 @@ class Constants {
   // };
 
   static const String ITEM_MENU_INFO = 'ITEM_MENU_HISTORY';
-  static const String ITEM_MENU_EVENTS = 'ITEM_MENU_STATISTICAL';
-  static const String ITEM_MENU_FRIENDS = 'ITEM_MENU_WALLET';
   static const String ITEM_MENU_LOGOUT = 'ITEM_MENU_SHARE_CODE';
-  static const String ITEM_MENU_ACTION = 'ITEM_MENU_ACTION';
+  static const String ITEM_MENU_SETTING = 'ITEM_MENU_SETTING';
 
   static const String ITEM_SUPPORT_HOTLINE = 'ITEM_SUPPORT_HOTLINE';
   static const String ITEM_SUPPORT_FACEBOOK = 'ITEM_SUPPORT_FACEBOOK';

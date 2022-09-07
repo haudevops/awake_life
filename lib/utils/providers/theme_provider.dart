@@ -7,10 +7,10 @@ class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
 
   ThemeProvider() {
-    _getThemeLocal();
+    getThemeLocal();
   }
 
-  _getThemeLocal() async {
+  getThemeLocal() async {
     final isDarkMode = PrefsUtil.getBool(PrefsCache.THEME_APP);
 
     if (isDarkMode != null) {
@@ -30,38 +30,4 @@ class ThemeProvider extends ChangeNotifier {
     AppColor().switchMode(isDarkTheme: isDarkMode);
     notifyListeners();
   }
-}
-
-class MyThemes {
-  static final darkTheme = ThemeData(
-    scaffoldBackgroundColor: AppColor.colorBackground,
-    appBarTheme: AppBarTheme(
-        color: AppColor.colorAppBarDark,
-        titleTextStyle: const TextStyle(color: Colors.white)),
-    primaryColor: AppColor.colorBlack,
-    colorScheme: const ColorScheme.dark(),
-    iconTheme: const IconThemeData(color: Colors.white),
-    toggleableActiveColor: AppColor.colorPrimaryButton,
-    indicatorColor: AppColor.colorPrimaryButton,
-  );
-
-  static final lightTheme = ThemeData(
-      scaffoldBackgroundColor: Colors.white,
-      appBarTheme: const AppBarTheme(
-          color: Colors.white, titleTextStyle: TextStyle(color: Colors.black, fontSize: 20)),
-      primaryColor: Colors.white,
-      colorScheme: const ColorScheme.light(
-        primary: Colors.black,
-        onPrimary: Colors.black,
-        primaryVariant: Colors.black,
-        secondary: Colors.red,
-      ),
-      iconTheme: IconThemeData(color: AppColor.colorBlack),
-      toggleableActiveColor: AppColor.colorPrimaryButton,
-      indicatorColor: AppColor.colorPrimaryButton
-      // checkboxTheme: CheckboxThemeData(
-      //     // checkColor: MaterialStateProperty.all(AppColor.colorPrimaryButton)
-      //     fillColor: MaterialStateProperty.all(AppColor.colorPrimaryButton))
-      // fontFamily: 'QuickSand'
-      );
 }
