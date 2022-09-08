@@ -107,14 +107,14 @@ class _HomePageState extends BasePageState<HomePage> {
                   fit: BoxFit.cover,
                 ),
               ),
-              backgroundColor: Colors.white,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                   childCount: _socialModel?.data?.length, (context, index) {
                 return Card(
                   elevation: 2,
-                  color: Colors.black,
+                  color: Theme.of(context).cardColor,
                   child: InkWell(
                     onDoubleTap: () {},
                     onTap: () {

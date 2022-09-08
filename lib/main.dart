@@ -23,6 +23,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+
     return ScreenUtilInit(
       designSize: const Size(411, 820),
       minTextAdapt: true,
@@ -37,9 +38,13 @@ class _MyAppState extends State<MyApp> {
         ],
         child: Builder(
           builder: (context) {
+            final themeProvider = Provider.of<ThemeProvider>(context);
             return MaterialApp(
               title: 'Awake Life',
               debugShowCheckedModeBanner: false,
+              themeMode: themeProvider.themeMode,
+              theme: MyThemes.lightTheme,
+              darkTheme: MyThemes.darkTheme,
               locale: Provider.of<LanguageProvider>(context, listen: true)
                   .currentLocale,
               localizationsDelegates: const [

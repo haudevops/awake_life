@@ -49,18 +49,14 @@ class _InfoPageState extends BasePageState<InfoPage> {
         title: Text(
           S.current.info_user,
           style: TextStyle(
-            color: AppColor.colorWhiteDark,
             fontSize: ScreenUtil.getInstance().getAdapterSize(18),
             fontWeight: FontWeight.w600,
           ),
         ),
         elevation: 1,
-        iconTheme: IconThemeData(color: AppColor.colorWhiteDark),
-        backgroundColor: AppColor.colorAppBarDark,
         centerTitle: true,
       ),
-      body: Container(
-        color: AppColor.colorContainerDark,
+      body: SizedBox(
         width: ScreenUtil.getInstance().screenWidth,
         height: ScreenUtil.getInstance().screenHeight,
         child: SingleChildScrollView(
@@ -123,10 +119,10 @@ class _InfoPageState extends BasePageState<InfoPage> {
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0,
-      color: Colors.black12,
       margin: EdgeInsets.symmetric(
           horizontal: ScreenUtil.getInstance().getAdapterSize(15),
           vertical: ScreenUtil.getInstance().getAdapterSize(8)),
+      color: Theme.of(context).cardTheme.color,
       child: ListTile(
         leading: SizedBox(
           height: ScreenUtil.getInstance().getAdapterSize(35),
@@ -138,7 +134,6 @@ class _InfoPageState extends BasePageState<InfoPage> {
         ),
         title: Text(
           text,
-          style: TextStyle(color: AppColor.colorWhiteDark),
         ),
         onTap: onTap,
       ),

@@ -45,7 +45,6 @@ class _MenuPageState extends BasePageState<MenuPage> {
         height: ScreenUtil.getInstance().screenHeight,
         width: ScreenUtil.getInstance().screenWidth,
         padding: EdgeInsets.all(ScreenUtil.getInstance().getAdapterSize(16)),
-        color: Colors.white,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +95,7 @@ class _MenuPageState extends BasePageState<MenuPage> {
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0,
-      color: Colors.black12,
+      color: Theme.of(context).cardTheme.color,
       child: ListTile(
         // leading: Container(
         //   height: ScreenUtil.getInstance().getAdapterSize(35),
@@ -128,9 +127,7 @@ class _MenuPageState extends BasePageState<MenuPage> {
         break;
       case Constants.ITEM_MENU_SETTING:
         DebugLog.show('Click ITEM_MENU_SETTING');
-        Navigator.pushNamed(context, SettingPage.routeName).then((value) {
-          setState(() {});
-        });
+        Navigator.pushNamed(context, SettingPage.routeName);
         break;
       case Constants.ITEM_MENU_LOGOUT:
         DebugLog.show('Click ITEM_MENU_SHARE_CODE');

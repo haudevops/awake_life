@@ -75,9 +75,6 @@ class _NavigationPageState extends BasePageState<NavigationPage> {
   void onCreate() {
     initRouteParams();
     _locationRequest();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setTheme();
-    });
   }
 
   @override
@@ -101,13 +98,14 @@ class _NavigationPageState extends BasePageState<NavigationPage> {
         ],
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
+        backgroundColor: Theme.of(context).cardTheme.color,
         // height: 80,
         behaviour: snakeBarStyle,
         snakeShape: snakeShape,
         // shape: bottomBarShape,
         // padding: padding,
 
-        snakeViewColor: selectedColor,
+        snakeViewColor: Theme.of(context).primaryColor,
         selectedItemColor:
             snakeShape == SnakeShape.indicator ? selectedColor : null,
         unselectedItemColor: unselectedColor,
@@ -158,12 +156,4 @@ class _NavigationPageState extends BasePageState<NavigationPage> {
     _location.onLocationChanged.listen((LocationData currentLocation) {});
   }
 
-  Future<void> setTheme() async {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-    if (mounted){
-      setState(() {
-        provider.getThemeLocal();
-      });
-    }
-  }
 }

@@ -59,7 +59,6 @@ class _SocialPageState extends BasePageState<SocialPage> {
             width: ScreenUtil.getInstance().screenWidth,
             padding:
                 EdgeInsets.all(ScreenUtil.getInstance().getAdapterSize(16)),
-            color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

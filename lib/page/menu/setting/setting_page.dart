@@ -32,10 +32,6 @@ class _SettingPageState extends BasePageState<SettingPage> {
     _checkLanguage =
         (languageLocal != null && languageLocal == Constants.ENGLISH);
     _isThemeDark = PrefsUtil.getBool(PrefsCache.THEME_APP)!;
-    print('_isThemeDark: $_isThemeDark');
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setTheme();
-    });
   }
 
   @override
@@ -43,92 +39,68 @@ class _SettingPageState extends BasePageState<SettingPage> {
     // TODO: implement onDestroy
   }
 
-  Future<void> setTheme() async {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-    if (mounted) {
-      provider.toggleTheme(_isThemeDark ?? false);
-    }
-  }
-
-  Future<void> _moveToNavigationPage(BuildContext context) =>
-      Navigator.pushNamedAndRemoveUntil(
-          context, NavigationPage.routeName, (route) => false,
-          arguments: ScreenArguments(arg1: 4));
-
   @override
   Widget buildWidget(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        _moveToNavigationPage(context);
-        return Future.value(true);
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            S.current.setting,
-            style: TextStyle(
-              color: AppColor.colorWhiteDark,
-              fontSize: ScreenUtil.getInstance().getAdapterSize(18),
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          elevation: 1,
-          // iconTheme: IconThemeData(color: AppColor.colorWhiteDark),
-          backgroundColor: AppColor.colorAppBarDark,
-          centerTitle: true,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: AppColor.colorWhiteDark,
-            ),
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, NavigationPage.routeName, (route) => false,
-                  arguments: ScreenArguments(arg1: 4));
-            },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          S.current.setting,
+          style: TextStyle(
+            fontSize: ScreenUtil.getInstance().getAdapterSize(18),
+            fontWeight: FontWeight.w600,
           ),
         ),
-        body: Container(
-          height: ScreenUtil.getInstance().screenHeight,
-          width: ScreenUtil.getInstance().screenWidth,
-          padding: EdgeInsets.all(ScreenUtil.getInstance().getAdapterSize(16)),
-          color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _itemSettingLanguageWidget(text: S.current.language, onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: AppColor.colorContainerDark,
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          )),
-                      builder: (context) {
-                        return BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                          child: StatefulBuilder(
-                            builder: (context, StateSetter state) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _headerWidget(),
-                                  _radioCheckLanguage(
-                                      S.current.vietnamese, _checkLanguage, false),
-                                  _radioCheckLanguage(S.current.english, _checkLanguage, true),
-                                ],
-                              );
-                            },
-                          ),
-                        );
-                      });
-                }),
-                _itemSettingThemeWidget(),
-              ],
-            ),
+        elevation: 1,
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+                context, NavigationPage.routeName, (route) => false,
+                arguments: ScreenArguments(arg1: 4));
+          },
+        ),
+      ),
+      body: Container(
+        height: ScreenUtil.getInstance().screenHeight,
+        width: ScreenUtil.getInstance().screenWidth,
+        padding: EdgeInsets.all(ScreenUtil.getInstance().getAdapterSize(16)),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _itemSettingLanguageWidget(text: S.current.language, onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        )),
+                    builder: (context) {
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                        child: StatefulBuilder(
+                          builder: (context, StateSetter state) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                _headerWidget(),
+                                _radioCheckLanguage(
+                                    S.current.vietnamese, _checkLanguage, false),
+                                _radioCheckLanguage(S.current.english, _checkLanguage, true),
+                              ],
+                            );
+                          },
+                        ),
+                      );
+                    });
+              }),
+              _itemSettingThemeWidget(),
+            ],
           ),
         ),
       ),
@@ -137,14 +109,12 @@ class _SettingPageState extends BasePageState<SettingPage> {
 
   Widget _itemSettingLanguageWidget(
       {required String text,
-      required GestureTapCallback onTap,
-      Color? textColor}) {
+      required GestureTapCallback onTap}) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0,
-      color: Colors.black12,
       child: ListTile(
         leading: SizedBox(
           height: ScreenUtil.getInstance().getAdapterSize(35),
@@ -156,7 +126,6 @@ class _SettingPageState extends BasePageState<SettingPage> {
         ),
         title: Text(
           text,
-          style: TextStyle(color: textColor),
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,
@@ -165,28 +134,22 @@ class _SettingPageState extends BasePageState<SettingPage> {
   }
 
   Widget _itemSettingThemeWidget() {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       elevation: 0,
-      color: Colors.black12,
       child: SwitchListTile(
         title: Text(
           S.current.theme,
           style: TextStyle(
-              fontSize: ScreenUtil.getInstance().getAdapterSize(15),
-              color: AppColor.colorWhiteDark),
+              fontSize: ScreenUtil.getInstance().getAdapterSize(15),),
         ),
-        value: _isThemeDark ?? false,
+        value: themeProvider.isDarkMode,
         onChanged: (bool value) {
-          setState(() {
-            _isThemeDark = !_isThemeDark!;
-            PrefsUtil.putBool(PrefsCache.THEME_APP, value);
-            print('_isThemeDark: $value');
-            provider.toggleTheme(value);
-          });
+          final provider = Provider.of<ThemeProvider>(context, listen: false);
+          provider.toggleTheme(value);
         },
         activeColor: Colors.green,
         secondary: Icon(

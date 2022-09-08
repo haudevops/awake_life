@@ -49,7 +49,6 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
         height: ScreenUtil.getInstance().screenHeight,
         width: ScreenUtil.getInstance().screenWidth,
         padding: EdgeInsets.all(ScreenUtil.getInstance().getAdapterSize(16)),
-        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -108,8 +107,7 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
                                       _peopleModel?.data?[index].title ?? '',
                                       style: TextStyle(
                                           fontSize: ScreenUtil.getInstance()
-                                              .getAdapterSize(15),
-                                          color: Colors.black),
+                                              .getAdapterSize(15),),
                                     ),
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
@@ -118,8 +116,7 @@ class _PeoplePageState extends BasePageState<PeoplePage> {
                                     Text(
                                       '${_peopleModel?.data?[index].name}',
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                          fontWeight: FontWeight.bold,),
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                     ),
