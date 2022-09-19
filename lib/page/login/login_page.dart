@@ -53,24 +53,32 @@ class LoginPageState extends BasePageState<LoginPage> {
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.amberAccent[50],
-        width: ScreenUtil.getInstance().screenWidth,
-        height: ScreenUtil.getInstance().screenHeight,
-        child: ListView(
-          shrinkWrap: true,
-          padding:
+      body: Stack(
+        children: [
+          // SizedBox(
+          //   width: ScreenUtil.getInstance().screenWidth,
+          //   height: ScreenUtil.getInstance().screenHeight,
+          //   child: Image.asset('assets/img/login_background.jpg', fit: BoxFit.fitHeight,)
+          // ),
+          Container(
+            width: ScreenUtil.getInstance().screenWidth,
+            height: ScreenUtil.getInstance().screenHeight,
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
+          Container(
+            width: ScreenUtil.getInstance().screenWidth,
+            height: ScreenUtil.getInstance().screenHeight,
+            margin: const EdgeInsets.only(top: 150),
+            child: ListView(
+              shrinkWrap: true,
+              padding:
               EdgeInsets.only(top: ScreenUtil.getInstance().getAdapterSize(80)),
-          children: [
-            SizedBox(
-              width: ScreenUtil.getInstance().screenWidth,
-              height: 150,
-              child:
-                  Lottie.asset('assets/img/animate_bg.json', fit: BoxFit.fill),
+              children: [
+                _processLoginWidget(),
+              ],
             ),
-            _processLoginWidget(),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -86,12 +94,11 @@ class LoginPageState extends BasePageState<LoginPage> {
         children: [
           Text('Login',
               style: TextStyle(
-                  fontSize: ScreenUtil.getInstance().getAdapterSize(20))),
+                  fontSize: ScreenUtil.getInstance().getAdapterSize(25), color: Theme.of(context).textTheme.headline1?.color, fontWeight: FontWeight.w600)),
           _itemPadding(25),
           Text('Phone Number',
               style: TextStyle(
-                  fontSize: ScreenUtil.getInstance().getAdapterSize(16),
-                  color: AppColor.colorTextGray)),
+                  fontSize: ScreenUtil.getInstance().getAdapterSize(16),color: Colors.white)),
           _itemPadding(12),
           _itemInput(
               hintText: 'Enter your phone',
@@ -118,7 +125,7 @@ class LoginPageState extends BasePageState<LoginPage> {
           Text('Password',
               style: TextStyle(
                   fontSize: ScreenUtil.getInstance().getAdapterSize(16),
-                  color: AppColor.colorTextGray)),
+                  color: Colors.white)),
           _itemPadding(12),
           _itemInput(
               hintText: 'Enter password',

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'generated/l10n.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -23,7 +24,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
       designSize: const Size(411, 820),
       minTextAdapt: true,

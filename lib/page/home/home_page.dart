@@ -135,7 +135,7 @@ class _HomePageState extends BasePageState<HomePage> {
                             width: ScreenUtil.getInstance().screenWidth,
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
-                              imageUrl: _socialModel?.data?[index].image ?? '',
+                              imageUrl: '${_socialModel?.data?[index].image}',
                               placeholder: (context, url) => SizedBox(
                                 width: 30,
                                 height: 30,
@@ -145,22 +145,6 @@ class _HomePageState extends BasePageState<HomePage> {
                               ),
                             ),
                           ),
-                          // SizedBox(
-                          //     height:
-                          //     ScreenUtil.getInstance().getAdapterSize(8)),
-                          // Center(
-                          //     child: Text(
-                          //       _socialModel?.data?[index].nameProduct ?? '',
-                          //       style: const TextStyle(fontWeight: FontWeight.w700),
-                          //     )),
-                          // SizedBox(
-                          //     height:
-                          //     ScreenUtil.getInstance().getAdapterSize(8)),
-                          // Text(
-                          //   _socialModel?.data?[index].descriptions ?? '',
-                          //   maxLines: 5,
-                          //   overflow: TextOverflow.ellipsis,
-                          // ),
                         ],
                       ),
                     ),
