@@ -22,9 +22,7 @@ class _MenuPageState extends BasePageState<MenuPage> {
     return [
       ItemSettingsModel(id: Constants.ITEM_MENU_INFO, title: S.current.info_user, image: ''),
       ItemSettingsModel(
-          id: Constants.ITEM_MENU_SETTING, title: S.current.setting, image: ''),
-      ItemSettingsModel(
-          id: Constants.ITEM_MENU_LOGOUT, title: S.current.logout, image: ''),
+          id: Constants.ITEM_MENU_SETTING, title: S.current.setting, image: '')
     ];
   }
 
@@ -52,11 +50,27 @@ class _MenuPageState extends BasePageState<MenuPage> {
               SizedBox(
                 height: ScreenUtil.getInstance().getAdapterSize(35),
               ),
-              Text(
-                S.current.function,
-                style: TextStyle(
-                    fontSize: ScreenUtil.getInstance().getAdapterSize(25),
-                    fontWeight: FontWeight.w600),
+              Row(
+                children: [
+                  Text(
+                    S.current.function,
+                    style: TextStyle(
+                        fontSize: ScreenUtil.getInstance().getAdapterSize(25),
+                        fontWeight: FontWeight.w600),
+                  ),
+                  const Spacer(),
+                  ElevatedButton(
+                    onPressed: (){},
+                    child: Text(
+                      S.current.login,
+                      style: TextStyle(
+                          fontSize: ScreenUtil.getInstance().getAdapterSize(16),
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.colorWhiteDark,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: ScreenUtil.getInstance().getAdapterSize(20),
@@ -112,13 +126,6 @@ class _MenuPageState extends BasePageState<MenuPage> {
     );
   }
 
-  Future<void> _clearToken() async {
-    final SharedPreferences prefs = await _prefs;
-    prefs.clear();
-    if (!mounted) return;
-    Navigator.pushNamed(context, SplashPage.routeName);
-  }
-
   void _onClickItem(String id) {
     switch (id) {
       case Constants.ITEM_MENU_INFO:
@@ -128,10 +135,6 @@ class _MenuPageState extends BasePageState<MenuPage> {
       case Constants.ITEM_MENU_SETTING:
         DebugLog.show('Click ITEM_MENU_SETTING');
         Navigator.pushNamed(context, SettingPage.routeName);
-        break;
-      case Constants.ITEM_MENU_LOGOUT:
-        DebugLog.show('Click ITEM_MENU_SHARE_CODE');
-        _clearToken();
         break;
       default:
         break;

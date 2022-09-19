@@ -12,5 +12,7 @@
   "info_user": "Info user",
   "logout": "Logout",
   "friends": "Friends",
-  "social": "Social"
+  "social": "Social",
+  "login": "Login",
+  "notification": "Notification"
 }

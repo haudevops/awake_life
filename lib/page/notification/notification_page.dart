@@ -9,6 +9,8 @@ import 'package:awake_life/utils/util_export.dart';
 import 'package:awake_life/widget/widget_export.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/l10n.dart';
+
 class NotificationPage extends BasePage {
   NotificationPage({Key? key}) : super(bloc: NotificationBloc());
   static const routeName = '/NotificationPage';
@@ -50,7 +52,6 @@ class _NotificationPageState extends BasePageState<NotificationPage> {
         height: ScreenUtil.getInstance().screenHeight,
         width: ScreenUtil.getInstance().screenWidth,
         padding: EdgeInsets.all(ScreenUtil.getInstance().getAdapterSize(16)),
-        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,7 +59,7 @@ class _NotificationPageState extends BasePageState<NotificationPage> {
               height: ScreenUtil.getInstance().getAdapterSize(50),
             ),
             Text(
-              'Notification',
+              S.current.notification,
               style: TextStyle(
                   fontSize: ScreenUtil.getInstance().getAdapterSize(25),
                   fontWeight: FontWeight.w600),
@@ -110,8 +111,7 @@ class _NotificationPageState extends BasePageState<NotificationPage> {
                                       notificationModel?.data?[index].name ?? '',
                                       style: TextStyle(
                                           fontSize: ScreenUtil.getInstance()
-                                              .getAdapterSize(16),
-                                          color: Colors.black),
+                                              .getAdapterSize(16)),
                                     ),
                                     SizedBox(
                                       height: ScreenUtil.getInstance()
@@ -120,8 +120,7 @@ class _NotificationPageState extends BasePageState<NotificationPage> {
                                     Text(
                                       '${notificationModel?.data?[index].content}',
                                       style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black),
+                                          fontWeight: FontWeight.bold),
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                     ),

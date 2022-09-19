@@ -71,35 +71,43 @@ class _SettingPageState extends BasePageState<SettingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _itemSettingLanguageWidget(text: S.current.language, onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
+              _itemSettingLanguageWidget(
+                  text: S.current.language,
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20),
                         )),
-                    builder: (context) {
-                      return BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                        child: StatefulBuilder(
-                          builder: (context, StateSetter state) {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _headerWidget(),
-                                _radioCheckLanguage(
-                                    S.current.vietnamese, _checkLanguage, false),
-                                _radioCheckLanguage(S.current.english, _checkLanguage, true),
-                              ],
-                            );
-                          },
-                        ),
-                      );
-                    });
-              }),
+                        builder: (context) {
+                          return BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                            child: StatefulBuilder(
+                              builder: (context, StateSetter state) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _headerWidget(),
+                                    _radioCheckLanguage(S.current.vietnamese,
+                                        _checkLanguage, false),
+                                    _radioCheckLanguage(S.current.english,
+                                        _checkLanguage, true),
+                                  ],
+                                );
+                              },
+                            ),
+                          );
+                        });
+                  }),
               _itemSettingThemeWidget(),
+              _itemLogoutWidget(
+                  text: S.current.logout,
+                  onTap: () {
+                    _clearToken();
+                  })
             ],
           ),
         ),
@@ -108,8 +116,7 @@ class _SettingPageState extends BasePageState<SettingPage> {
   }
 
   Widget _itemSettingLanguageWidget(
-      {required String text,
-      required GestureTapCallback onTap}) {
+      {required String text, required GestureTapCallback onTap}) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -144,7 +151,8 @@ class _SettingPageState extends BasePageState<SettingPage> {
         title: Text(
           S.current.theme,
           style: TextStyle(
-              fontSize: ScreenUtil.getInstance().getAdapterSize(15),),
+            fontSize: ScreenUtil.getInstance().getAdapterSize(15),
+          ),
         ),
         value: themeProvider.isDarkMode,
         onChanged: (bool value) {
@@ -202,6 +210,32 @@ class _SettingPageState extends BasePageState<SettingPage> {
         provider.changeLocale(
             _checkLanguage ? Constants.ENGLISH : Constants.VIETNAMESE);
       },
+    );
+  }
+
+  Future<void> _clearToken() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.clear();
+    if (!mounted) return;
+    Navigator.pushNamed(context, SplashPage.routeName);
+  }
+
+  Widget _itemLogoutWidget(
+      {required String text, required GestureTapCallback onTap}) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      elevation: 0,
+      color: Theme.of(context).cardTheme.color,
+      child: ListTile(
+        leading: const Icon(Icons.logout),
+        title: Text(
+          text,
+        ),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: onTap,
+      ),
     );
   }
 }

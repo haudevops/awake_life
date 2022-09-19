@@ -115,9 +115,10 @@ class Constants {
   //   OrderStatus.FINISHED_RETURNED: S.current.order_status_finished_returned,
   // };
 
-  static const String ITEM_MENU_INFO = 'ITEM_MENU_HISTORY';
-  static const String ITEM_MENU_LOGOUT = 'ITEM_MENU_SHARE_CODE';
+  static const String ITEM_MENU_INFO = 'ITEM_MENU_INFO';
+  static const String ITEM_MENU_LOGOUT = 'ITEM_MENU_LOGOUT';
   static const String ITEM_MENU_SETTING = 'ITEM_MENU_SETTING';
+  static const String ITEM_MENU_LOGIN = 'ITEM_MENU_LOGIN';
 
   static const String ITEM_SUPPORT_HOTLINE = 'ITEM_SUPPORT_HOTLINE';
   static const String ITEM_SUPPORT_FACEBOOK = 'ITEM_SUPPORT_FACEBOOK';

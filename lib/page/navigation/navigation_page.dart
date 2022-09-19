@@ -66,7 +66,7 @@ class _NavigationPageState extends BasePageState<NavigationPage> {
   initRouteParams() {
     _selectedItemPosition = widget.data.arg1;
     _pageController = PageController(
-      initialPage: _selectedItemPosition ?? 2,
+      initialPage: _selectedItemPosition ?? 0,
       keepPage: true,
     );
   }
@@ -93,7 +93,7 @@ class _NavigationPageState extends BasePageState<NavigationPage> {
           MapPage(),
           SocialPage(),
           HomePage(),
-          PeoplePage(),
+          NotificationPage(),
           MenuPage(),
         ],
       ),
@@ -119,7 +119,7 @@ class _NavigationPageState extends BasePageState<NavigationPage> {
           BottomNavigationBarItem(icon: Icon(Icons.map), label: 'tickets'),
           BottomNavigationBarItem(icon: Icon(Icons.live_tv), label: 'live_tv'),
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'home'),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: 'people'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'notification'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting')
         ],
         selectedLabelStyle: const TextStyle(fontSize: 14),

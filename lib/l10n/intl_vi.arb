@@ -12,5 +12,7 @@
   "info_user": "Thông tin người dùng",
   "logout": "Đăng xuất",
   "friends": "Bạn bè",
-  "social": "Giải trí"
+  "social": "Giải trí",
+  "login": "Đăng nhập",
+  "notification": "Thông báo"
 }
